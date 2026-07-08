@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>꿈비 신상품개발연구소 프로젝트 진행현황</title>
+    <link rel="stylesheet" href="styles.css?v=roadmap-title1" />
+  </head>
+  <body>
+    <section id="loginScreen" class="login-screen" aria-label="로그인">
+      <div class="login-art">
+        <div class="login-copy">
+          <span>Ggumbi NPD Lab</span>
+          <h1>꿈비 신상품개발연구소 프로젝트 진행현황</h1>
+          <p>신상품 개발 현황, 런칭 일정, 매출 성과를 한 화면에서 확인합니다.</p>
+        </div>
+      </div>
+      <div class="login-side">
+        <div class="login-icon" aria-hidden="true"></div>
+        <h2>꿈비 신상품개발연구소 프로젝트 진행현황</h2>
+        <p>로그인이 필요합니다</p>
+
+        <form id="loginForm" class="login-card">
+          <div class="login-tabs" aria-label="로그인 유형">
+            <button type="button" class="active">로그인</button>
+            <button type="button">회원가입</button>
+          </div>
+          <label>
+            아이디
+            <input id="loginId" name="loginId" autocomplete="username" placeholder="아이디" required />
+          </label>
+          <label>
+            비밀번호
+            <input id="loginPassword" name="loginPassword" type="password" autocomplete="current-password" placeholder="비밀번호" required />
+          </label>
+          <button class="primary-button" type="submit">로그인</button>
+          <small id="loginHint">지정된 계정으로 로그인하세요.</small>
+        </form>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="brand-logo" src="assets/ggumbi-logo.png" alt="GGUMBI" />
+          <div>
+            <strong>꿈비</strong>
+            <span>신상품개발연구소</span>
+          </div>
+        </div>
+        <nav class="side-nav" aria-label="대시보드 항목">
+          <button class="nav-item active" type="button" data-target="summarySection">💰 핵심요약</button>
+          <button class="nav-item" type="button" data-target="salesSection">📈 신상품 매출 보고</button>
+          <button class="nav-item" type="button" data-target="scheduleSection">📅 일정 관리 현황</button>
+          <button class="nav-item" type="button" data-target="progressSection">📊 상품별 진행 현황</button>
+          <button class="nav-item" type="button" data-target="ownerSection">👥 담당자별 진행 현황</button>
+        </nav>
+        <section class="side-summary" aria-label="핵심 요약">
+          <article>
+            <span>💰 올해 누적매출</span>
+            <strong id="sideRevenue">0원</strong>
+          </article>
+          <article>
+            <span>🚀 런칭 완료 상품</span>
+            <strong id="sideLaunched">0개</strong>
+          </article>
+          <article>
+            <span>📦 개발 진행 상품</span>
+            <strong id="sideActive">0개</strong>
+          </article>
+          <article>
+            <span>📅 이번 달 주요 일정</span>
+            <ul id="sideSchedule"></ul>
+          </article>
+        </section>
+        <button id="logoutButton" class="logout-button" type="button">로그아웃</button>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p id="dataStatus">Google Sheets 연결 중</p>
+            <h1>신상품개발연구소 프로젝트 진행현황</h1>
+          </div>
+          <div class="top-actions">
+            <span id="updatedAt">데이터 기준 -</span>
+            <a href="https://docs.google.com/spreadsheets/d/1RjwacSKp30pA-W3swCD8-kPxgfBVflGu70bJnF8ON4w/edit" target="_blank" rel="noreferrer">원본 시트</a>
+            <button id="refreshData" type="button">새로고침</button>
+            <button id="resetFilters" type="button">필터 초기화</button>
+          </div>
+        </header>
+
+        <section class="filters" aria-label="대시보드 필터">
+          <label>
+            브랜드
+            <select id="brandFilter"></select>
+          </label>
+          <label>
+            월
+            <select id="monthFilter"></select>
+          </label>
+          <label class="search-filter">
+            품목
+            <input id="searchInput" type="search" placeholder="상품명 입력" />
+          </label>
+        </section>
+
+        <section id="summarySection" class="hero-grid report-section">
+          <article class="hero-card">
+            <span>전체 진행 상품</span>
+            <strong id="kpiProjects">0</strong>
+            <small id="kpiActive">개발 진행 중 0개</small>
+          </article>
+          <article class="hero-card">
+            <span>런칭 완료</span>
+            <strong id="kpiLaunched">0</strong>
+            <small id="kpiLaunchRate">런칭 비중 0%</small>
+          </article>
+          <article class="hero-card accent">
+            <span>💰 올해 누적매출</span>
+            <strong id="kpiRevenue">0원</strong>
+            <small id="kpiRevenueText">올해 누적 0원</small>
+          </article>
+          <article class="hero-card">
+            <span>평균 원가율</span>
+            <strong id="kpiCostRate">0%</strong>
+            <small id="kpiCostWatch">관리 대상 0개</small>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article id="salesSection" class="panel wide report-section">
+            <div class="panel-head">
+              <div>
+                <h2>💰 올해 누적매출</h2>
+                <p>월별 매출 흐름과 상품/브랜드별 기여도를 함께 봅니다.</p>
+              </div>
+              <div class="sales-total-stack">
+                <span id="salesTotal">실매출 합계 0원</span>
+                <span id="salesForecastTotal">4~6월 실매출 + 7~12월 목표 0원</span>
+              </div>
+            </div>
+            <div class="sales-chart-legend" aria-label="매출 그래프 범례">
+              <span><i class="legend-actual"></i>실매출</span>
+              <span><i class="legend-target"></i>목표매출</span>
+            </div>
+            <div id="monthlyChart" class="bar-chart"></div>
+            <div id="salesGrowth" class="sales-growth"></div>
+            <div class="sales-breakdown">
+              <section>
+                <h3>상품별</h3>
+                <div id="productSales" class="mini-list"></div>
+              </section>
+              <section>
+                <h3>브랜드별</h3>
+                <div id="brandSales" class="mini-list"></div>
+              </section>
+              <section>
+                <h3>월별</h3>
+                <div id="monthSales" class="mini-list"></div>
+              </section>
+            </div>
+          </article>
+
+          <article class="panel pipeline-panel">
+            <div class="panel-head">
+              <div>
+                <h2>🚀 개발 진행 현황</h2>
+                <p>단계별 상품 수와 주요 품목을 관리합니다.</p>
+              </div>
+              <span id="stageCount">0개 단계</span>
+            </div>
+            <div id="pipelineBoard" class="pipeline-board"></div>
+          </article>
+
+          <article class="panel wide cost-panel">
+            <div class="panel-head">
+              <div>
+                <h2>💹 원가율 분포</h2>
+                <p>상품별 원가율을 구간별로 관리합니다.</p>
+              </div>
+              <span id="costBandCount">0개</span>
+            </div>
+            <div id="costBandBoard" class="cost-band-board"></div>
+            <div id="costInsight" class="cost-insight"></div>
+          </article>
+          <article id="scheduleSection" class="panel report-section">
+            <div class="panel-head">
+              <div>
+                <h2>📋 이번 달 주요 사항</h2>
+                <p>런칭과 양산/입고 주요 일정을 자동 요약합니다.</p>
+              </div>
+            </div>
+            <div id="monthReport" class="report-board"></div>
+          </article>
+
+          <article class="panel dev-status-panel">
+            <div class="panel-head">
+              <div>
+                <h2>🚧 주요 개발 진행 현황</h2>
+                <p>핵심 프로젝트별 현재 진행 내용을 정리합니다.</p>
+              </div>
+            </div>
+            <div class="dev-status-list">
+              <section>
+                <h3>올스텐 젖병살균세척기</h3>
+                <ul>
+                  <li>T2 프로그램(세척+헹굼 4회 사이클) 수정 진행 중</li>
+                  <li>T2 하드웨어 제작 진행 중</li>
+                  <li>CB 인증 서류 초안 발행 대기</li>
+                </ul>
+              </section>
+              <section>
+                <h3>3세대 배터리 분리형 휴대용 분유포트</h3>
+                <ul>
+                  <li>품질 개선 항목 적용 및 검증 진행 중</li>
+                </ul>
+              </section>
+              <section>
+                <h3>3세대 젖병쉐이커</h3>
+                <ul>
+                  <li>T1 샘플 차주 입고 예정</li>
+                </ul>
+              </section>
+              <section>
+                <h3>2세대 젖병쉐이커 (업그레이드)</h3>
+                <ul>
+                  <li>프로그램 커스터마이징 사양 조율 진행 중</li>
+                </ul>
+              </section>
+              <section>
+                <h3>4세대 배터리 분리형 휴대용 분유포트 (이유식)</h3>
+                <ul>
+                  <li>T1샘플 업체 자체 테스트 진행중</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <article id="progressSection" class="panel table-panel report-section">
+            <div class="panel-head">
+              <div>
+                <h2>📊 상품별 진행 현황</h2>
+                <p>진행률, 담당자, 인증, 양산, 런칭 예정일을 관리합니다.</p>
+              </div>
+              <span id="tableCount">0개</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>브랜드</th>
+                    <th>상품명</th>
+                    <th>담당자</th>
+                    <th>개발단계</th>
+                    <th>진행률</th>
+                    <th>인증 현황</th>
+                    <th>양산 완료 예정일</th>
+                    <th>런칭 예정일</th>
+                    <th>누적매출</th>
+                    <th>원가율</th>
+                  </tr>
+                </thead>
+                <tbody id="productTable"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel wide">
+            <div class="panel-head">
+              <div>
+                <h2>🗓️ 전체 상품 런칭 로드맵</h2>
+                <p>월별 런칭 예정 품목을 이미지 기준으로 한눈에 확인합니다.</p>
+              </div>
+              <a class="panel-link" href="assets/launch-calendar-map.png?v=map-visible1" target="_blank" rel="noreferrer">크게 보기</a>
+            </div>
+            <a class="launch-map" href="assets/launch-calendar-map.png?v=map-visible1" target="_blank" rel="noreferrer">
+              <img src="assets/launch-calendar-map.png?v=map-visible1" alt="전체 상품별 런칭월 정리 이미지" />
+            </a>
+            <section class="dev-schedule-insight">
+              <div class="insight-block">
+                <h3>📅 개발 일정 Insight</h3>
+                <h4>🟡 이번 달 변경사항</h4>
+                <div class="schedule-change-grid">
+                  <span>⏳ 일정 지연: <strong>9건</strong></span>
+                  <span>🆕 신규 프로젝트: <strong>4건</strong></span>
+                  <span>❌ 보류/제외: <strong>2건</strong></span>
+                  <span>✅ 일정 유지: <strong>1건</strong></span>
+                </div>
+              </div>
+              <div class="insight-block">
+                <h4>주요 변경 프로젝트</h4>
+                <ul class="schedule-change-list">
+                  <li><strong>올스텐 젖병세척기</strong><span>8월 → 9월 (+1개월)</span></li>
+                  <li><strong>NEW 스팀 젖병세척기</strong><span>9월 → 10월 (+1개월)</span></li>
+                  <li><strong>무선 헤어드라이기</strong><span>6월 → 8월 (+2개월)</span></li>
+                  <li><strong>분유제조기</strong><span>8월 → 12월 (+4개월, 신규 모델 변경 및 KC 일정 반영)</span></li>
+                </ul>
+              </div>
+              <div class="insight-block insight-note">
+                <h4>💡 Insight</h4>
+                <p>주요 개발 일정이 전반적으로 1~4개월 조정되었습니다. 인증 일정과 제품 품질 향상을 위한 검증 과정으로 일부 프로젝트의 런칭 일정이 변경되었으며, 향후에는 목표일(Target Date) 기반의 일정 관리와 주요 마일스톤 점검을 강화하여 추가 일정 지연을 최소화할 계획입니다.</p>
+              </div>
+            </section>
+          </article>
+
+          <article class="panel wide">
+            <div class="panel-head">
+              <div>
+                <h2>📅 런칭 캘린더</h2>
+                <p>런칭 예정일 기준 전체 일정입니다.</p>
+              </div>
+            </div>
+            <div id="launchList" class="launch-list calendar-list"></div>
+          </article>
+
+          <article id="ownerSection" class="panel wide report-section">
+            <div class="panel-head">
+              <div>
+                <h2>👥 담당자별 진행 현황</h2>
+                <p>담당자별 품목 수, 평균 진행률, 단계별 업무량을 확인합니다.</p>
+              </div>
+              <span id="ownerCount">0명</span>
+            </div>
+            <div id="ownerBoard" class="owner-board"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="data/dashboard-data.js?v=labels1"></script>
+    <script src="app.js?v=roadmap-title1"></script>
+  </body>
+</html>

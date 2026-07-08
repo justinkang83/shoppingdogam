@@ -1,0 +1,6 @@
+{
+  "provider": "쿠팡 파트너스",
+  "sub_id": "AF1515044",
+  "link_policy": "Use product affiliate_url when available. Fall back to product detail page if missing.",
+  "rel": "nofollow sponsored noopener"
+}

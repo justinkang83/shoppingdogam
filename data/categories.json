@@ -1,0 +1,10 @@
+[
+  { "id": "cat-life", "name": "생활가전", "slug": "home-appliances", "description": "청소, 의류관리, 생활 편의를 위한 가전 제품." },
+  { "id": "cat-kitchen", "name": "주방가전", "slug": "kitchen-appliances", "description": "조리, 세척, 식재료 준비를 돕는 주방 제품." },
+  { "id": "cat-season", "name": "계절가전", "slug": "seasonal-appliances", "description": "공기, 습도, 냉난방처럼 계절별 쾌적함을 위한 제품." },
+  { "id": "cat-digital", "name": "디지털기기", "slug": "digital-devices", "description": "태블릿, 스마트폰, 카메라, 리더기 등 디지털 디바이스." },
+  { "id": "cat-pc", "name": "PC·주변기기", "slug": "pc-accessories", "description": "모니터, 키보드, 허브, 데스크 환경 제품." },
+  { "id": "cat-audio", "name": "음향기기", "slug": "audio-devices", "description": "헤드폰, 이어폰, 스피커처럼 듣는 경험을 위한 제품." },
+  { "id": "cat-smart", "name": "스마트홈", "slug": "smart-home", "description": "도어락, 플러그, 카메라, 자동화 제품." },
+  { "id": "cat-car", "name": "자동차 디지털용품", "slug": "car-digital", "description": "블랙박스, 차량 충전기, 차량용 전자기기." }
+]

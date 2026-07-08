@@ -1,0 +1,11 @@
+[
+  { "id": "best-overall", "label": "종합 1위", "rule": "AI 종합 추천 점수가 가장 높은 제품" },
+  { "id": "best-budget", "label": "예산 추천", "rule": "카테고리 평균가보다 낮고 가성비 점수가 높은 제품" },
+  { "id": "best-premium", "label": "프리미엄 추천", "rule": "가격대는 높지만 성능과 브랜드 신뢰도가 뛰어난 제품" },
+  { "id": "beginners", "label": "입문자 추천", "rule": "사용 편의성이 높고 구매 리스크가 낮은 제품" },
+  { "id": "professionals", "label": "전문가 추천", "rule": "성능과 내구성 점수가 높은 제품" },
+  { "id": "best-value", "label": "최고 가성비", "rule": "가성비 점수가 가장 높은 제품" },
+  { "id": "popular", "label": "인기 추천", "rule": "리뷰수 또는 쿠팡 인기 순위가 높은 제품" },
+  { "id": "editors-pick", "label": "에디터 추천", "rule": "구매 이유가 명확하고 균형이 좋은 제품" },
+  { "id": "ai-pick", "label": "AI 추천", "rule": "종합 점수와 추천 적합도가 높은 대표 제품" }
+]

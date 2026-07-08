@@ -1,0 +1,26 @@
+[
+  {
+    "id": "work-from-home",
+    "title": "재택근무 추천 세트",
+    "description": "책상, 모니터, 오디오, 생산성 기기를 하나의 환경으로 큐레이션합니다.",
+    "type": "productivity"
+  },
+  {
+    "id": "budget-electronics",
+    "title": "예산형 디지털 추천",
+    "description": "가격은 낮추되 사용 경험을 크게 포기하지 않는 고효율 제품.",
+    "type": "budget"
+  },
+  {
+    "id": "premium-picks",
+    "title": "프리미엄 추천",
+    "description": "디자인, 내구성, 성능이 좋아 추가 비용을 낼 만한 제품.",
+    "type": "premium"
+  },
+  {
+    "id": "smart-home",
+    "title": "스마트홈 추천",
+    "description": "복잡함은 줄이고 생활 편의성은 높여주는 자동화 제품.",
+    "type": "smart-home"
+  }
+]
